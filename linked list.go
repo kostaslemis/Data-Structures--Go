@@ -117,4 +117,3 @@ func main() {
 	list.printListData()
 	fmt.Println(list.getLength())
 }
-
