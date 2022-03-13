@@ -2,63 +2,71 @@ package main
 
 import "fmt"
 
-// Item represents the data type of values stored in Queue
+// Item represents data type of values stored in Stack
 type Item int
 
-// Queue represents a queue that holds a slice
-type Queue struct {
+type Stack struct {
 	items []Item
 }
 
-// Enqueue adds a value at the end of the queue
-func (queue *Queue) Enqueue(value Item) {
-	queue.items = append(queue.items, value)
+// Push adds value on top of Stack
+func (stack *Stack) Push(value Item) {
+	stack.items = append(stack.items, value)
 }
 
-// Dequeue removes a value from the end of the queue and returns the removed value
-func (queue *Queue) Dequeue() Item {
-	removedValue := queue.items[0]
-	queue.items = queue.items[1:]
+// Pop removes value from top of Stack and returns value
+func (stack *Stack) Pop() Item {
+	l := len(stack.items)-1
+	removedValue := stack.items[l]
+	stack.items = stack.items[:l]
 	return removedValue
 }
 
-func (queue *Queue) Peek() Item {
-	return queue.items[0]
+// Peek returns value from top of Stack
+func (stack *Stack) Peek() Item {
+	return stack.items[len(stack.items)-1]
 }
 
-func (queue *Queue) Contains(value Item) bool {
-	for i := range queue.items {
-		if value == queue.items[i] {
+// Contains takes in value and returns true if value is stored in Stack
+func (stack *Stack) Contains(value Item) bool {
+	for i := range stack.items {
+		if value == stack.items[i] {
 			return true
 		}
 	}
 	return false
 }
 
-func (queue *Queue) Size() int {
-	return len(queue.items)
+// Size returns size of Stack
+func (stack *Stack) Size() int {
+	return len(stack.items)
 }
 
-func (queue *Queue) Clear() {
-	queue.items = nil
+// Clear removes every value stored in Stack
+func (stack *Stack) Clear() {
+	stack.items = nil
 }
 
-func (queue *Queue) Empty() bool {
-	return len(queue.items) == 0
+// Empty returns true if no value is stored in Stack
+func (stack *Stack) Empty() bool {
+	return len(stack.items) == 0
 }
 
 func main() {
-	queue := Queue{}
-	fmt.Println(queue)
+	stack := Stack{}
+	fmt.Println(stack)
 
-	queue.Enqueue(12)
-	queue.Enqueue(5)
-	queue.Enqueue(43)
-	fmt.Println(queue)
+	stack.Push(10)
+	stack.Push(12)
+	stack.Push(13)
+	fmt.Println(stack)
+	fmt.Println(stack.Peek())
 
-	fmt.Println(queue.Dequeue())
-	fmt.Println(queue)
+	fmt.Println(stack.Pop())
+	fmt.Println(stack)
+	fmt.Println(stack.Peek())
 
-	queue.Clear()
-	fmt.Println(queue)
+	stack.Clear()
+	fmt.Println(stack)
+	fmt.Println(stack.Size())
 }
