@@ -2,71 +2,67 @@ package main
 
 import "fmt"
 
-// Item represents data type of values stored in Stack
+// Item represents the data type of values stored in Queue
 type Item int
 
-type Stack struct {
+type Queue struct {
 	items []Item
 }
 
-// Push adds value on top of Stack
-func (stack *Stack) Push(value Item) {
-	stack.items = append(stack.items, value)
+// Enqueue adds value at end of Queue
+func (queue *Queue) Enqueue(value Item) {
+	queue.items = append(queue.items, value)
 }
 
-// Pop removes value from top of Stack and returns value
-func (stack *Stack) Pop() Item {
-	l := len(stack.items)-1
-	removedValue := stack.items[l]
-	stack.items = stack.items[:l]
+// Dequeue removes value from start of Queue and returns value
+func (queue *Queue) Dequeue() Item {
+	removedValue := queue.items[0]
+	queue.items = queue.items[1:]
 	return removedValue
 }
 
-// Peek returns value from top of Stack
-func (stack *Stack) Peek() Item {
-	return stack.items[len(stack.items)-1]
+// Peek returns value from start of Queue
+func (queue *Queue) Peek() Item {
+	return queue.items[0]
 }
 
-// Contains takes in value and returns true if value is stored in Stack
-func (stack *Stack) Contains(value Item) bool {
-	for i := range stack.items {
-		if value == stack.items[i] {
+// Contains takes in value and returns true if value is stored in Queue
+func (queue *Queue) Contains(value Item) bool {
+	for i := range queue.items {
+		if value == queue.items[i] {
 			return true
 		}
 	}
 	return false
 }
 
-// Size returns size of Stack
-func (stack *Stack) Size() int {
-	return len(stack.items)
+// Size returns size of Queue
+func (queue *Queue) Size() int {
+	return len(queue.items)
 }
 
-// Clear removes every value stored in Stack
-func (stack *Stack) Clear() {
-	stack.items = nil
+// Clear removes every value stored in Queue
+func (queue *Queue) Clear() {
+	queue.items = nil
 }
 
-// Empty returns true if no value is stored in Stack
-func (stack *Stack) Empty() bool {
-	return len(stack.items) == 0
+// Empty returns true if no value is stored in Queue
+func (queue *Queue) Empty() bool {
+	return len(queue.items) == 0
 }
 
 func main() {
-	stack := Stack{}
-	fmt.Println(stack)
+	queue := Queue{}
+	fmt.Println(queue)
 
-	stack.Push(10)
-	stack.Push(12)
-	stack.Push(13)
-	fmt.Println(stack)
-	fmt.Println(stack.Peek())
+	queue.Enqueue(12)
+	queue.Enqueue(5)
+	queue.Enqueue(43)
+	fmt.Println(queue)
 
-	fmt.Println(stack.Pop())
-	fmt.Println(stack)
-	fmt.Println(stack.Peek())
+	fmt.Println(queue.Dequeue())
+	fmt.Println(queue)
 
-	stack.Clear()
-	fmt.Println(stack)
-	fmt.Println(stack.Size())
+	queue.Clear()
+	fmt.Println(queue)
 }
